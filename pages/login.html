@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/jquery.dataTables.min.css">  
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+  <style type="text/css">
+    .auth.lock-full-bg {
+      background: url(../assets/images/10.jpg);
+      background-size: cover;
+  }
+  .bx{
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: rgba(255, 94, 109, 0.5);
+  }
+  .app-name{
+    color: #fff;
+  }
+  .footer-tag{
+    color: #fff;
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  .auth .lock-profile-img {
+    width: 30%;
+    height: auto;
+    border-radius: unset;
+  }
+  </style>
+  <div class="container-scroller">
+    <div class="container-fluid page-body-wrapper full-page-wrapper">
+      <div class="content-wrapper d-flex align-items-center auth lock-full-bg">
+        <div class="row w-100">
+          <div class="col-lg-4 mx-auto bx">
+            <div class="auth-form-transparent text-left p-5 text-center">
+              <h2 class="app-name">StockBits</h2>
+              <img src="../assets/images/StockBits-Large.png" class="lock-profile-img" alt="img">
+              <form class="pt-5" id="loginForm">
+                <div class="form-group">
+                  <label for="examplePassword1">Password to unlock</label>
+                  <input type="password" autofocus class="form-control text-center" id="password" placeholder="Password">
+                </div>
+                <div class="mt-5">
+                  <button class="btn btn-block btn-success btn-lg font-weight-medium"><i class="fa fa-unlock"></i> Unlock</button> 
+                </div>
+                <p class="footer-tag">By ARS Technologies Alwar-Rajasthan</p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- content-wrapper ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
+<script type="text/javascript" src="../renderer.js"></script>
+<script type="text/javascript" src="../Controllers/window/loginController.js"></script>
+</body>
+</html>

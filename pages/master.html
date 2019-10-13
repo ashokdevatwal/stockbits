@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/jquery.dataTables.min.css">  
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <div class="container-scroller">
+<style type="text/css">
+  .card-counter{
+    box-shadow: 2px 2px 10px #DADADA;
+    margin: 5px;
+    padding: 20px 10px;
+    background-color: #fff;
+    height: 100px;
+    border-radius: 5px;
+    transition: .3s linear all;
+  }
+  .card-counter:hover{
+    box-shadow: 4px 4px 20px #DADADA;
+    transition: .3s linear all;
+  }
+  .card-counter.primary{
+    background-color: #007bff;
+    color: #FFF;
+  }
+  .card-counter.danger{
+    background-color: #ef5350;
+    color: #FFF;
+  }  
+  .card-counter.success{
+    background-color: #66bb6a;
+    color: #FFF;
+  }  
+  .card-counter.info{
+    background-color: #26c6da;
+    color: #FFF;
+  }  
+  .card-counter i{
+    font-size: 5em;
+    opacity: 0.2;
+  }
+  .card-counter .count-numbers{
+    position: absolute;
+    right: 35px;
+    top: 20px;
+    font-size: 20px;
+    display: block;
+  }
+  .card-counter .count-name{
+    position: absolute;
+    right: 35px;
+    top: 65px;
+    font-style: italic;
+    text-transform: capitalize;
+    opacity: 1;
+    display: block;
+    font-size: 18px;
+    color: #343a40;
+  }
+</style>
+  <style type="text/css">
+  .business-name {
+    font-size: 20px;
+    text-align: center;
+    color: #2196F3 !important;
+  }
+  .navbar.default-layout-navbar {
+    border-bottom: 3px solid #17a2b8 !important;
+  }
+  .activetab {
+    background: rgba(11, 148, 247, 0.57);
+    color: #8d9498;
+  }
+  .action-btn{
+    padding: 4px !important;
+  }
+  .datewrapper , .timewrapper{
+    margin-top: 14px;
+    margin-right: 2px;
+    padding: 9px;
+    margin-bottom: 14px;
+    color: #795548;
+  }
+  .datewrapper{
+    border-right: 1px solid #ddd;
+  }
+  .datewrapper > span,.timewrapper > span {
+    text-shadow: 0px 2px 3px #555;
+  }
+  .card .card-body {
+    padding: 7px !important;
+  }
+  .navbar.default-layout-navbar .navbar-brand-wrapper .navbar-brand img {
+    width: 66%;
+    max-width: 100%;
+    height: auto;
+    margin: auto;
+    vertical-align: middle;
+}
+.navbar.default-layout-navbar .navbar-menu-wrapper .navbar-nav .nav-item.nav-profile img {
+    width: 49%;
+    height: auto;
+    border-radius: unset;
+}
+</style>
+
+<nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row default-layout-navbar">
+  <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+    <a class="navbar-brand brand-logo">
+      <img src="../assets/images/StockBits.png"/>
+    </a>
+    <a class="navbar-brand brand-logo-mini">
+      <img src="../assets/images/StockBits.png"/>
+    </a>
+  </div>
+  <div class="navbar-menu-wrapper d-flex align-items-stretch">
+    <div class="datewrapper">
+      <span id="weekday"></span>, 
+      <span id="day"></span>
+      <span id="month"></span>
+      <span id="year"></span>
+    </div>
+    <div class="timewrapper">
+      <span id="hour"></span> : 
+      <span id="min"></span> : 
+      <span id="sec"></span>
+    </div>
+    <ul class="navbar-nav navbar-nav-right">
+      <li class="nav-item"> <a class="business-name" id="business-name"></a> </li>
+      <li class="nav-item nav-profile dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" id="profileDropdown">
+          <img src="../assets/images/StockBits.png" alt="profile"/>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+          <a class="dropdown-item" onclick="logout()">
+            <i class="fas fa-power-off text-primary"></i>Logout
+          </a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>    
+
+<div class="container-fluid page-body-wrapper">
+  <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <ul class="nav">
+    <li class="nav-item activetab" id="dashboardIndex">
+      <a class="nav-link" onclick="dashboardView()">
+        <i class="fa fa-home menu-icon"></i>
+        <span class="menu-title">Dashboard</span>
+      </a>
+    </li>
+    <li class="nav-item" id="expanceIndex">
+      <a class="nav-link" onclick="expanceView()">
+        <i class="far fa-user menu-icon"></i>
+        <span class="menu-title">Expance</span>
+      </a>
+    </li>
+    <li class="nav-item" id="vendorIndex">
+      <a class="nav-link" onclick="vendorsView()">
+        <i class="far fa-user menu-icon"></i>
+        <span class="menu-title">Vendors</span>
+      </a>
+    </li>
+    <li class="nav-item d-none d-lg-block" id="productIndex">
+      <a class="nav-link" onclick="productsView()">
+        <i class="fa fa-mobile menu-icon"></i>
+        <span class="menu-title">Products</span>
+      </a>
+    </li>
+    <li class="nav-item" id="saleIndex">
+      <a class="nav-link" onclick="saleView()">
+        <i class="fas fa-chart-line menu-icon"></i>
+        <span class="menu-title">Sales</span>
+      </a>
+    </li>
+    <li class="nav-item" id="purchaseIndex">
+      <a class="nav-link" onclick="purchaseView()">
+        <i class="fa fa-truck menu-icon"></i>
+        <span class="menu-title">Purchase</span>
+      </a>
+    </li>
+    <li class="nav-item" id="reportIndex">
+      <a class="nav-link" onclick="reportView()">
+        <i class="fas fa-clipboard-list menu-icon"></i>
+        <span class="menu-title">Report</span>
+      </a>
+    </li>
+    <li class="nav-item" id="settingIndex">
+      <a class="nav-link" onclick="settingView()">
+        <i class="fas fa-cog menu-icon"></i>
+        <span class="menu-title">Settings</span>
+      </a>
+    </li>
+    <li class="nav-item" id="databaseIndex">
+      <a class="nav-link" onclick="databaseView()">
+        <i class="fas fa-database menu-icon"></i>
+        <span class="menu-title">Database</span>
+      </a>
+    </li>
+    </ul>
+  </nav>      
+
+    <div class="main-panel">
+        
+        <!-- Dashboard UserInterface -->
+        <div class="content-wrapper" id="dashboardContentWrapper">
+            <div class="page-header">
+              <h3 class="page-title">Dashboard</h3>
+            </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="card-counter primary">
+                  <i class="fa fa-cubes"></i>
+                  <span class="count-numbers" id="instockproduct"></span>
+                  <span class="count-name">Stock</span>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="card-counter primary">
+                  <i class="fa fa-credit-card"></i>
+                  <span class="count-numbers" id="stockAmount"></span>
+                  <span class="count-name">Stock Amount</span>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="card-counter danger">
+                  <i class="fa fa-chart-line"></i>
+                  <span class="count-numbers" id="totalSales"></span>
+                  <span class="count-name">Sales</span>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="card-counter danger">
+                  <i class="fa fa-credit-card"></i>
+                  <span class="count-numbers" id="salesAmount"></span>
+                  <span class="count-name">Sales Amount</span>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="card-counter success">
+                  <i class="fa fa-credit-card"></i>
+                  <span class="count-numbers" id="currentMonthExpance"></span>
+                  <span class="count-name"><span id="expanceMonth"></span> Expance</span>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="card-counter info">
+                  <i class="fa fa-chart-line"></i>
+                  <span class="count-numbers" id="currentMonthSales"></span>
+                  <span class="count-name"><span id="salesMonth"></span> Sales</span>
+                </div>
+              </div>
+
+              <div class="col-md-3">
+                <div class="card-counter info">
+                  <i class="fa fa-credit-card"></i>
+                  <span class="count-numbers" id="currentMonthRevanue"></span>
+                  <span class="count-name">This Month Revanue</span>
+                </div>
+              </div>
+            </div>
+            
+        </div>
+
+        <!-- Database Export UserInterface -->
+        <div class="content-wrapper" id="exportContentWrapper" style="display: none;">
+            <div class="page-header">
+              <h3 class="page-title">Export Database</h3>
+            </div>
+            <div class="row grid-margin">
+              
+                <div class="col-md-2 grid-margin stretch-card">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fa fa-users fa-4x"></i>
+                            <h4>Vendor</h4>
+                            <button class="btn btn-info btn-sm mt-3 mb-4" onclick="exportVendor()">
+                              <i class="fa fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 grid-margin stretch-card">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fa fa-credit-card fa-4x"></i>
+                            <h4>Expance</h4>
+                            <button class="btn btn-info btn-sm mt-3 mb-4" data-toggle="modal" data-target="#expanceModel">
+                              <i class="fa fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 grid-margin stretch-card">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fa fa-credit-card fa-4x"></i>
+                            <h4>Revanue</h4>
+                            <button class="btn btn-info btn-sm mt-3 mb-4" data-toggle="modal" data-target="#revanueModel">
+                              <i class="fa fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 grid-margin stretch-card">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fa fa-cubes fa-4x"></i>
+                            <h4>Products</h4>
+                            <button class="btn btn-info btn-sm mt-3 mb-4" onclick="exportProduct()">
+                              <i class="fa fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 grid-margin stretch-card">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fa fa-chart-line fa-4x"></i>
+                            <h4>Sales</h4>
+                            <button class="btn btn-info btn-sm mt-3 mb-4" data-toggle="modal" data-target="#salesModel">
+                              <i class="fa fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 grid-margin stretch-card">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fa fa-chart-line fa-4x"></i>
+                            <h4>Purchase</h4>
+                            <button class="btn btn-info btn-sm mt-3 mb-4" data-toggle="modal" data-target="#purchaseModel">
+                              <i class="fa fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-2 grid-margin stretch-card">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fa fa-cubes fa-4x"></i>
+                            <h4>Stock</h4>
+                            <button class="btn btn-info btn-sm mt-3 mb-4" onclick="exportStock()">
+                              <i class="fa fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- Database UserInterface -->
+        <div class="content-wrapper" id="databaseContentWrapper" style="display: none;">
+            <div class="page-header">
+              <h3 class="page-title">Database Setting</h3>
+            </div>
+            <div class="row grid-margin">
+              
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fa fa-upload fa-4x"></i>
+                            <h4>Backup</h4>
+                            <button class="btn btn-info btn-sm mt-3 mb-4" onclick="backupDatabase()">Start Backup</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fa fa-download fa-4x"></i>
+                            <h4>Restore</h4>
+                            <button class="btn btn-info btn-sm mt-3 mb-4" onclick="restoreDatabase()">Start Restore</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <i class="fa fa-share fa-4x"></i>
+                            <h4>Export</h4>
+                            <button class="btn btn-info btn-sm mt-3 mb-4" onclick="exportView()">Start Report</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Report UserInterface -->
+        <div class="content-wrapper" id="reportContentWrapper" style="display: none;">
+            <div class="page-header">
+              <h3 class="page-title">Report</h3>
+            </div>
+            <div class="row grid-margin">
+              
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h4>Sales</h4>
+                            <p class="text-muted">Report</p>
+                            <button class="btn btn-info btn-sm mt-3 mb-4" onclick="salesReportView()">View Report</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h4>Stock</h4>
+                            <p class="text-muted">Report</p>
+                            <button class="btn btn-info btn-sm mt-3 mb-4" onclick="stockReportView()">View Report</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4 grid-margin stretch-card">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h4>Revanue</h4>
+                            <p class="text-muted">Report</p>
+                            <button class="btn btn-info btn-sm mt-3 mb-4" onclick="revanueReportView()">View Report</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expance Tab -->
+        <div class="content-wrapper" id="expanceContentWrapper" style="display: none;">
+            <div class="page-header">
+              <h3 class="page-title">Exapance List</h3>
+              <button class="btn btn-success" onclick="addExpanceWindow()">New</button>
+            </div>
+           <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="table-responsive">
+                      <table id="expance-listing" class="table">
+                        <thead>
+                          <tr>
+                              <th>ID</th>
+                              <th>Title</th>
+                              <th>Amount</th>
+                              <th>Comment</th>
+                              <th>Date</th>
+                              <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody id="expanceTable">
+                          <!-- Table Data -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Vendors Tab -->
+        <div class="content-wrapper" id="vendorsContentWrapper" style="display: none;">
+            <div class="page-header">
+              <h3 class="page-title">Vendors List</h3>
+              <button class="btn btn-success" onclick="addVendorWindow()">New</button>
+            </div>
+           <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="table-responsive">
+                      <table id="vendor-listing" class="table">
+                        <thead>
+                          <tr>
+                              <th>ID</th>
+                              <th>Name</th>
+                              <th>City</th>
+                              <th>E-mail</th>
+                              <th>Mobile</th>
+                              <th>Address</th>
+                              <th>GST No</th>
+                              <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody id="vendorTable">
+                          <!-- Table Data -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Products Tab -->
+        <div class="content-wrapper" id="productsContentWrapper" style="display: none;">
+            <div class="page-header">
+              <h3 class="page-title">Products List</h3>
+              <button class="btn btn-success" onclick="addProductWindow()">New</button>
+            </div>
+           <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="table-responsive">
+                      <table id="product-listing" class="table">
+                        <thead>
+                          <tr>
+                              <th>ID</th>
+                              <th>Company</th>
+                              <th>Model</th>
+                              <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody id="productTable">
+                          <!-- Table Data -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Purchse Tab -->
+        <div class="content-wrapper" id="purchaseContentWrapper" style="display: none;">
+            <div class="page-header">
+              <h3 class="page-title">Purchase List</h3>
+              <button class="btn btn-success" onclick="addPurchaseWindow()">New</button>
+            </div>
+           <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="table-responsive">
+                      <table id="purchase-listing" class="table">
+                        <thead>
+                          <tr>
+                              <th>Id</th>
+                              <th>Vendor</th>
+                              <th>Product</th>
+                              <th>Rate</th>
+                              <th>IMEI/Serial</th>
+                              <th>Stock</th>
+                              <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody id="purchaseTable">
+                          <!-- Table Data -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Sale Tab -->
+        <div class="content-wrapper" id="saleContentWrapper" style="display: none;">
+            <div class="page-header">
+              <h3 class="page-title">Sale List</h3>
+              <button class="btn btn-success" onclick="addSaleWindow()">New</button>
+            </div>
+           <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="table-responsive">
+                      <table id="sale-listing" class="table">
+                        <thead>
+                          <tr>
+                              <th>Id</th>
+                              <th>Customer</th>
+                              <th>Product</th>
+                              <th>Sale Rate</th>
+                              <th>Sale On</th>
+                              <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody id="saleTable">
+                          <!-- Table Data -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Sale Report Tab -->
+        <div class="content-wrapper" id="saleReportContentWrapper" style="display: none;">
+            <div class="page-header">
+              <h3 class="page-title">Sale Report</h3>
+            </div>
+           <div class="card">
+              <div class="card-body">
+                <div class="row" style="margin-bottom: 5px;">
+                  <div class="col-md-4 form-inline">
+                      <select class="form-control" id="salesQuickFilter">
+                        <option value="0">Custom</option>
+                        <option value="1" selected>Today</option>
+                        <option value="7">7 Days</option>
+                        <option value="15">15 Days</option>
+                        <option value="30">30 Days</option>
+                      </select>
+                      <button class="btn btn-primary" onclick="salesQuickFilter()">Apply</button>
+                  </div>
+                  <div class="col-md-8">
+                  <div class="form-inline" style="float:right;">
+                    <div class="form-group">
+                      <label style="padding:5px">From </label>
+                      <input class="form-control" type="date" id="salesStartDate">
+                      <label style="padding:5px">To </label>
+                      <input class="form-control" type="date" id="salesEndDate">
+                    </div>
+                    <button class="btn btn-primary" onclick="salesCustomFilter()">Apply</button>
+                  </div>
+                  </div>
+                </div>
+                <hr style="width: 100%" />
+                <div class="row">
+                  <div class="col-12">
+                    <div class="table-responsive">
+                      <table id="salereport-listing" class="table">
+                        <thead>
+                          <tr>
+                              <th>Product</th>
+                              <th>Model</th>
+                              <th>Sale</th>
+                          </tr>
+                        </thead>
+                        <tbody id="saleReportTable">
+                          <!-- Table Data -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Stock Report Tab -->
+        <div class="content-wrapper" id="stockReportContentWrapper" style="display: none;">
+            <div class="page-header">
+              <h3 class="page-title">Stock Report</h3>
+            </div>
+           <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="table-responsive">
+                      <table id="stockreport-listing" class="table">
+                        <thead>
+                          <tr>
+                              <th>Product</th>
+                              <th>Model</th>
+                              <th>Sale</th>
+                          </tr>
+                        </thead>
+                        <tbody id="stockReportTable">
+                          <!-- Table Data -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <!-- Revanue Report Tab -->
+        <div class="content-wrapper" id="revanueReportContentWrapper" style="display: none;">
+            <div class="page-header">
+              <h3 class="page-title">Revanue Report</h3>
+              <h5 class="page-title" id="totalRevanueAmount"></h5>
+            </div>
+           <div class="card">
+              <div class="card-body">
+                <div class="row" style="margin-bottom: 5px;">
+                  <div class="col-md-4 form-inline">
+                      <select class="form-control" id="revanueQuickFilter">
+                        <option value="0">Custom</option>
+                        <option value="1" selected>Today</option>
+                        <option value="7">7 Days</option>
+                        <option value="15">15 Days</option>
+                        <option value="30">30 Days</option>
+                      </select>
+                      <button class="btn btn-primary" onclick="revanueQuickFilter()">Apply</button>
+                  </div>
+                  <div class="col-md-8">
+                  <div class="form-inline" style="float:right;">
+                    <div class="form-group">
+                      <label style="padding:5px">From </label>
+                      <input class="form-control" type="date" id="revanueStartDate">
+                      <label style="padding:5px">To </label>
+                      <input class="form-control" type="date" id="revanueEndDate">
+                    </div>
+                    <button class="btn btn-primary" onclick="revanueCustomFilter()">Apply</button>
+                  </div>
+                  </div>
+                </div>
+                <hr style="width: 100%" />
+                <div class="row">
+                  <div class="col-12">
+                    <div class="table-responsive">
+                      <table id="revanuereport-listing" class="table">
+                        <thead>
+                          <tr>
+                              <th>Product</th>
+                              <th>Purchase Rate</th>
+                              <th>Sale Rate</th>
+                              <th>Revanue</th>
+                          </tr>
+                        </thead>
+                        <tbody id="revanueReportTable">
+                          <!-- Table Data -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">
+                  Copyright © <span id="cpyear"></span> 
+                  <a href="" onclick="javascript:require('electron').shell.openExternal('http://www.arsdevelopers.com')">ARS Technologies</a>.
+                   All rights reserved.
+                </span>
+                <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
+                  Hand-crafted & Made By
+                  <a href="" onclick="javascript:require('electron').shell.openExternal('https://www.linkedin.com/in/ashok-devatwal/ ')">Er. Ashok Devatwal</a>
+                </span>
+            </div>
+        </footer>    
+    </div>
+  </div>
+</div>
+
+<!-- Expance Modal -->
+<div id="expanceModel" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+          <div class="form-group">
+            <label>From</label>
+            <input class="form-control" type="date" id="expanceStartDate">
+          </div>
+          <div class="form-group">
+            <label>To</label>
+            <input class="form-control" type="date" id="expanceEndDate">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary" onclick="exportExpance()">Export</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Revanue Modal -->
+<div id="revanueModel" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+          <div class="form-group">
+            <label>From</label>
+            <input class="form-control" type="date" id="revanueStartDate">
+          </div>
+          <div class="form-group">
+            <label>To</label>
+            <input class="form-control" type="date" id="revanueEndDate">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary" onclick="exportRevanue()">Export</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Sales Modal -->
+<div id="salesModel" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+          <div class="form-group">
+            <label>From</label>
+            <input class="form-control" type="date" id="saleStartDate">
+          </div>
+          <div class="form-group">
+            <label>To</label>
+            <input class="form-control" type="date" id="saleEndDate">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary" onclick="exportSales()">Export</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Purchase Modal -->
+<div id="purchaseModel" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+          <div class="form-group">
+            <label>From</label>
+            <input class="form-control" type="date" id="purchaseStartDate">
+          </div>
+          <div class="form-group">
+            <label>To</label>
+            <input class="form-control" type="date" id="purchaseEndDate">
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal">Close</button>
+        <button class="btn btn-primary" onclick="exportPurchase()">Export</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+</body>
+<script type="text/javascript" src="../renderer.js"></script>
+<script type="text/javascript" src="../assets/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="../Controllers/masterController.js"></script>
+
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function(){
+    startTime();
+    startDate();
+    ipc.send("mainWindowLoaded");
+});
+</script>
+</html>

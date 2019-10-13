@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <style type="text/css">
+    .content-wrapper{background: rgba(108, 117, 125, 0.31);}    
+  </style>
+<div class="main-panel">
+  <div class="content-wrapper">
+		<div class="row">
+      <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <form class="forms-sample" id="addSaleForm">
+                <div class="form-group row">
+                    <label>Product</label>
+                   <div class="col-sm-12" id="productInject">
+                      <!-- Product Drop Down -->
+                    </div>
+                </div>
+
+              <div class="form-group">
+                <label for="name">Customer Name</label>
+                <input type="text" class="form-control" id="name" value="Customer Name">
+              </div>
+
+              <div class="form-group">
+                <label for="address">Customer Address</label>
+                <input type="text" class="form-control" id="address" placeholder="Customer Address">
+              </div>
+
+              <div class="form-group">
+                <label for="mobile">Customer Mobile</label>
+                <input type="text" class="form-control" id="mobile" placeholder="Customer Mobile">
+              </div>
+
+              <div class="form-group">
+                <label for="salecost">Sale Cost</label>
+                <input type="text" class="form-control" id="salecost" placeholder="Sale Cost">
+              </div>
+              
+              <div class="form-group">
+                <label for="pdate">Sale Date</label>
+                <input type="date" class="form-control" id="pdate">
+              </div>
+
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script type="text/javascript" src="../renderer.js"></script>
+<script type="text/javascript" src="../Controllers/window/saleController.js"></script>
+</html>

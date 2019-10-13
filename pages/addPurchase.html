@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <style type="text/css">
+    .content-wrapper{background: rgba(108, 117, 125, 0.31);}    
+    .main-panel{ width: 100% !important; }
+  </style>
+<div class="main-panel">
+    <div class="content-wrapper">
+     <div class="row">
+            <div class="col-md-12 grid-margin stretch-card">
+              <div class="card">
+                <div class="card-body">
+                  <form class="forms-sample" id="addPurchaseForm">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Vendors</label>
+                          <div class="col-sm-9" id="vendorInject">
+                            <!-- Vendor Drop Down -->
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Products</label>
+                          <div class="col-sm-9" id="productInject">
+                            <!-- Product Drop Down -->
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Rate</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="rate" placeholder="Product Rate">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">IMEI/SERIAL 1</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="imei_or_serial1" placeholder="Product IMEI/SERIAL">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">IMEI/SERIAL 2</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="imei_or_serial2" placeholder="Product IMEI/SERIAL">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">IMEI/SERIAL 3</label>
+                          <div class="col-sm-9">
+                            <input type="text" class="form-control" id="imei_or_serial3" placeholder="Product IMEI/SERIAL">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="form-group row">
+                          <label class="col-sm-3 col-form-label">Purchase Date</label>
+                          <div class="col-sm-9">
+                            <input type="date" class="form-control" id="pdate">
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="../renderer.js"></script>
+<script type="text/javascript" src="../Controllers/window/purchaseController.js"></script>
+</html>

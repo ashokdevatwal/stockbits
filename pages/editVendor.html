@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <style type="text/css">
+    .content-wrapper{background: rgba(108, 117, 125, 0.31);}    
+  </style>
+<div class="main-panel">
+    <div class="content-wrapper">
+    <div class="row">
+      <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <form class="forms-sample" id="editVendorForm">
+              <input type="hidden" id="vendorid">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Name</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="name" placeholder="Vendor Name" autofocus>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">City</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="city" placeholder="Vendor City">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">E-mail</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="email" placeholder="Vendor E-mail">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Mobile</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="mobile" placeholder="Vendor Mobile">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">Address</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="address" placeholder="Vendor Address">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label class="col-sm-3 col-form-label">GST No</label>
+                    <div class="col-sm-9">
+                      <input type="text" class="form-control" id="gstno" placeholder="Vendor GST No">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              
+              <button type="submit" class="btn btn-primary mr-2">Save</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script type="text/javascript" src="../renderer.js"></script>
+<script type="text/javascript" src="../Controllers/window/vendorController.js"></script>
+</html>

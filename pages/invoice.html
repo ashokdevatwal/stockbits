@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<style type="text/css">
+/* Style To Adjust Printing */
+@page {
+    size: auto;   /* auto is the initial value */
+    margin: 0;  /* this affects the margin in the printer settings */
+}
+
+div.chapter, div.appendix {
+    page-break-after: always;
+}
+div.titlepage {
+  page: blank;
+}
+
+/* End Printing Style  */
+
+  .bd-tp-bt{
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    width: 40%;
+    margin-left: 30%;
+  }
+  .tag-line{
+       font-size: 18px;
+      font-family: cursive;
+      font-style: oblique;
+  }
+  p{
+        margin: 1px;
+  }
+  .margin-p-5px{
+    margin: 5px;
+    margin-left: 0px;
+  }
+  .main-panel {
+    width:100% !important;
+  }
+  hr {
+    width: 100%;
+    display: inline-block;
+  }
+
+  @media screen {
+  div.divFooter {
+    display: none;
+  }
+}
+@media print {
+  div.divFooter {
+    position: fixed;
+    bottom: 0;
+    padding: 2px;
+    border-top: 1px solid #ddd;
+    border-bottom:1px solid #ddd;
+    text-align: center;
+    width: 100%;
+  }
+}
+
+#background{
+    position:absolute;
+    z-index:9999;
+    background:white;
+    opacity: 0.1;
+    display:block;
+    min-height:50%; 
+    min-width:50%;
+    color:yellow;
+}
+#waterMark
+{
+    color:lightgrey;
+    font-size:70px;
+    transform:rotate(300deg);
+    -webkit-transform:rotate(300deg);
+    margin-top: 55%;
+    margin-left: 5%;
+    width: 100%;
+}
+</style>
+
+
+
+<div class="divFooter" id="footerTag"></div>
+
+<div class="main-panel">          
+  <div class="content-wrapper">
+    <div class="row">
+      <div id="background">
+        <p id="waterMark"></p>
+      </div>
+        <div class="col-lg-12">
+            <div class="card px-2">
+                <div class="card-body">
+                    <div class="container-fluid" style="border-bottom: 1px solid #ddd;">
+                      <h4 class="text-center" id="bussinessName"></h4>
+                      <p class="text-center tag-line">All Mobiles Avaliable Here</p>
+                      <p class="text-center bd-tp-bt">Deals In : Mobile,Laptop,CCTV Camera,LED</p>
+                      <p class="text-center" id="bussinessAddress"></p>
+                    </div>
+                    <div class="container-fluid d-flex justify-content-between">
+                      <div class="col-lg-3 pl-0">
+                        <p class="mt-5 mb-2"><b>Party Details</b></p>
+                        <p>Name : <span id="customerName"></span> </p>
+                        <p>Mobile : <span id="customerMobile"></span> </p>
+                        <p>Address : <span id="customerAddress"></span> </p>
+                      </div>
+                      <div class="col-lg-3 pr-0">
+                        <p class="mt-5 mb-2 text-right"><b>Invoice No : <span id="invoiceNumber"></span></b></p>
+                        <p class="text-right">Invoice Date : <span id="invoiceDate"></span></p>
+                        <p class="text-right">GST No : <span id="invoiceGST"></span></p>
+                      </div>
+                    </div>
+                    <div class="container-fluid mt-5 d-flex justify-content-center w-100">
+                      <div class="table-responsive w-100">
+                          <table class="table">
+                            <thead>
+                              <tr class="bg-dark text-white">
+                                  <th>#</th>
+                                  <th>Description</th>
+                                  <th class="text-right">Quantity</th>
+                                  <th class="text-right">Rate</th>
+                                  <th class="text-right">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                              <tr class="text-right">
+                                <td class="text-left">1</td>
+                                <td class="text-left">
+                                  <p><b id="productName"></b></p>
+                                  <p class="margin-p-5px">IMEI/SERIAL : <span id="serial1"></span></p>
+                                  <p class="margin-p-5px">IMEI/SERIAL : <span id="serial2"></span></p>
+                                  <p class="margin-p-5px">IMEI/SERIAL : <span id="serial3"></span></p>
+                                  <p class="margin-p-5px">Battery No. : ..............................</p>
+                                </td>
+                                <td>1</td>
+                                <td id="amount1"></td>
+                                <td id="amount2"></td>
+                              </tr>
+                              <tr class="text-right">
+                                <td colspan="4"><b>Total :</b></td>
+                                <td id="amount3"></td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                    </div>
+                    <div class="container-fluid d-flex justify-content-between mt-5" style="border-bottom: 1px solid #ddd;border-top: 1px solid #ddd;">
+                      <div class="col-lg-6 pl-0">
+                        <p>* E.&O.E.</p>
+                        <p>* Payment Accept By Cash </p>
+                        <p>* Handset once sold not be taken back & exchange </p>
+                        <p>* Warranty & Guaranty as per Company's rules & Regulation </p>
+                        <p>* All Disputes subject to Alwar Jurisdiction only </p>
+                        <p>* Customer care service mobile center </p>
+                      </div>
+                      <div class="col-lg-4 pr-0">
+                        <img class="text-right" src="../assets/images/logs.jpg" style="width:100%;margin:5px">
+                      </div>
+                    </div>
+                    <div class="container-fluid d-flex justify-content-between mt-5">
+                      <div class="col-lg-3 pl-0">
+                        <p>Customer Sign </p>
+                      </div>
+                      <div class="col-lg-3 pr-0">
+                        <p class="text-right">Authorised Signatory</p>
+                        <p class="text-right"><b>For : <span id="authName"></span></b></p>
+                      </div>                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="../renderer.js"></script>
+<script type="text/javascript" src="../Controllers/window/invoiceController.js"></script>
+</body>
+</html>

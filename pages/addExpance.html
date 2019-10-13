@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+	<style type="text/css">
+		.content-wrapper{background: rgba(108, 117, 125, 0.31);}    
+	</style>
+<div class="main-panel">
+    <div class="content-wrapper">
+		<div class="row">
+      <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+          <div class="card-body">
+            <form class="forms-sample" id="addExpanceForm">
+              <div class="form-group">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" placeholder="Title To Expance" autofocus>
+              </div>
+              <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="text" class="form-control" id="amount" placeholder="Expance Amount">
+              </div>
+              <div class="form-group">
+                <label for="comment">Comment</label>
+                <input type="text" class="form-control" id="comment" placeholder="Expance Short Description">
+              </div>
+              <div class="form-group">
+                <label for="expancedate">Expance Date</label>
+                <input type="date" class="form-control" id="expancedate">
+              </div>
+              <button type="submit" class="btn btn-primary mr-2">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script type="text/javascript" src="../renderer.js"></script>
+<script type="text/javascript" src="../Controllers/window/expanceController.js"></script>
+</html>
