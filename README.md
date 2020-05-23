@@ -1,2 +1,2 @@
-# stockbits
-Inventory Management By ARS Technologies - Alwar Rajasthan
+# StockBits
+Inventory Management Using Electron
